@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Каталог десертов
+{% endblock %}
+{% block content %}
+
+  <h1>Каталог всех десертов</h1>
+    <hr>
+    <div class="row">
+      {% if products %}
+      {% for product in products %}
+        <div class="item col-sm-6 col-md-4 thumbnail thumbnail-prods">
+          {% for item in prod_photos %}
+          {% if item.product == product %}
+          <a href="{{ product.get_absolute_url }}">
+            <img src="{{item.product_photo.url}}" class="img-responsive prod-pic">
+          </a>
+          {% endif %}
+          {% endfor %}
+          <h3 style="white-space: pre-wrap;"><a href="{{ product.get_absolute_url }}">{{ product.product_name }} </a><br></h3>
+          <h4>{{product.product_price}} грн </h4>
+          <p class="p_main">{{product.product_description | truncatechars_html:100}}</p>
+
+          <!-- <center> <a class="btn btn-success" href="{{ product.get_absolute_url }}">Подробнее</a> </center>
+          <br> -->
+        </div>
+        {% endfor %}
+        {% endif %}
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+{% block title %}Наша продукция {% endblock %}
+
+{% block content %}
+<div class="wrapper-products">
+  <div class="container general-container">
+    <h1><span style="color: #099913">Категория: </span>{{p_class}}</h1>
+    <hr>
+    <div class="row">
+    {% if prods %}
+    {% for product in prods %}
+      <div class="col-md-3 col-md-offset-1 col-sm-5 col-sm-offset-1 thumbnail thumbnail-prods">
+
+        <h3>{{product.product_name}}</h3>
+        <!--<h4>{{product.product_class}}</h4>-->
+         {% for key,value in prod_photos.items %}
+          {% if key.product_name == product.product_name %}
+           <a href="{% url 'product_det' product.id %}"> <img src="{{value}}" alt="pic" class="img-responsive prod-pic" width="300px"></a>
+          {% endif %}
+        {% endfor %}
+        <h4>{{product.product_price}} <span class="glyphicon glyphicon-euro"></span></h4>
+        <!--<h4 style="text-align:justify;">{{product.product_description | truncatechars_html:140}}</h4>-->
+        {#<!--<p>{{product.product_description | truncatechars_html:130}}</p>--> #}
+        <p class="p_main" style="min-width:280px;">{{product.product_description | truncatewords_html:15}}</p>
+        <br>
+            <center>
+              <a class="btn btn-success" href="{% url 'product_det' product.id %}">Подробнее</a>
+              <a class="btn btn-success add-to-card" href="{% url 'add_to_cart' product.id %}" id="add-to-card"
+                data-product_id = "{{ product.id }}"
+                data-product_name = "{{ product.product_name }}"
+                data-product_price = "{{ product.product_price }}"
+              >Добавить в корзину</a>
+            </center>
+        <br>
+      </div>
+
+    {% endfor %}
+    {% else %}
+      <center><h2>Нет продуктов в этой категрии</h2></center>
+    {% endif %}
+    </div>
+
+  <br>
+  <br>
+  {% if p_class.id == 1 %}
+  <div class="row">
+      <div class="row">
+        <center>
+          <h1>Особенности и <span style="color: #099913">преимущества</span></h1>
+        </center>
+      </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+
+      <ul class="nav nav-pills inline" style="display: inline-block; margin: 0 auto;">
+        <li role="presentation">
+          <a href="#tab1" role="tab" data-toggle="tab">
+            <em class="glyphicon glyphicon-calendar"></em>
+            <span>LONG LIFESPAN</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#tab2" role="tab" data-toggle="tab">
+            <em class="glyphicon glyphicon-refresh"></em>
+            <span>REUSABLE</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#tab3" role="tab" data-toggle="tab">
+            <em class="glyphicon glyphicon-check"></em>
+            <span>LAB TESTED</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#tab4" role="tab" data-toggle="tab">
+            <em class="glyphicon glyphicon-filter"></em>
+            <span>ULTRAFILTERATION</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#tab5" role="tab" data-toggle="tab">
+            <em class="glyphicon glyphicon-certificate"></em>
+            <span>CERTIFIED</span>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#tab6" role="tab" data-toggle="tab">
+            <em class="glyphicon glyphicon-usd"></em>
+            <span>COST EFFECTIVE</span>
+          </a>
+        </li>
+      </ul>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="tab-content th-featurestabcontent col-md-8 col-md-offset-2">
+        <div role="tabpanel" class="tab-pane" id="tab1">
+          <h3>LONG LIFESPAN</h3>
+          <div class="th-description">
+            <h5>90+ days lifespan</h5>
+            <p>Depending on water quality and usage, a Shower-Safe filter can last for several months based on the frequency of showering and the clarity of source water.</p>
+          </div>
+          <h5>Quick Look at lifespan</h5>
+          <ul class="th-list th-listheart col-md-8">
+            <li>Industry leading lifespan</li>
+            <li>Large volume filtering capacity</li>
+            <li>No shelf-life or expiration date</li>
+            <li>Optional pre-filter for extended life</li>
+            <li>Low flow-rate with amazing pressure</li>
+          </ul>
+          <div class="col-md-4">
+            <img alt="" src="{% static 'main/img/Shower-Filter-Chrome-e1469821740565.png' %}" class="img-responsive center-block" />
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="tab2">
+          <h3>REUSABLE</h3>
+          <div class="th-description">
+            <h5>Replaceable Filter</h5>
+            <p>Reduce costs and reduce waste with a high-quality product allowing you to replace the expended filter cartridge and keep using the rest of the product for years</p>
+          </div>
+          <h5>How to reduce and reuse</h5>
+          <ul class="th-list th-listheart col-md-8">
+            <li>Investment once in full&nbsp;filter unit</li>
+            <li>Estimate&nbsp;water quality and use</li>
+            <li>Install and monitor water flow</li>
+            <li>Schedule filter replacement</li>
+            <li>Follow replacement instructions</li>
+          </ul>
+          <div class="col-md-4">
+            <img alt="" src="{% static 'main/img/Line-Safe-open-levels.jpeg' %}" class="img-responsive center-block" />
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="tab3">
+          <h3>LAB TESTED</h3>
+          <div class="th-description">
+            <h5>Log 7 Reduction</h5>
+            <p>Log 7 reduction means 99.99999% bacteria is removed from the water. The filter has been determined to have the ability of preventing transfer of Legionella pneumophila beyond its enclosed hollow fiber membrane by Industrial Microbiological Services, Ltd. (IMSL).</p>
+          </div>
+          <h5>Lab-tested Results</h5>
+          <ul class="th-list th-listheart col-md-8">
+            <li>Effective as a barrier to transmission</li>
+            <li>More than 99.99999% reduction</li>
+            <li>No Legionella passed through</li>
+            <li>Lab simulated long term use</li>
+            <li>The product exceeds Log 7</li>
+          </ul>
+          <div class="col-md-4">
+            <img alt="" src="{% static 'main/img/clinic-doctor-health-hospital-768x512.jpg' %}" class="img-responsive center-block" />
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="tab4">
+          <h3>ULTRAFILTERATION</h3>
+          <div class="th-description">
+            <h5>Micrometer pore</h5>
+            <p>The Environmental Protection Agency criterion for bacteria removal is that the membrane should filter out any bacteria 1 micron (μm) or larger. The absolute
+              pore size of the membrane is less than one micron at roughly 0.08 μm</p>
+            </div>
+            <h5>What does it mean?</h5>
+            <ul class="th-list th-listheart col-md-8">
+              <li>Meets EPA criteria</li>
+              <li>Micrometer pore size</li>
+              <li>Smaller than all bacteria</li>
+              <li>Effectively filters all bacteria</li>
+              <li>Classifies as Ultrafiltration</li>
+            </ul>
+            <div class="col-md-4">
+              <img alt="" src="{% static 'main/img/hollow-membrane-fibres.png' %}" class="img-responsive center-block" />
+            </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="tab5">
+            <h3>CERTIFIED</h3>
+            <div class="th-description">
+              <h5>Fully certified</h5>
+              <p><strong>SWP International</strong> guarantees the product quality through rigorous testing, advanced manufacturing, meticulous design and vigorous management,
+                and warrants for the warranty period of one year that its products will be free from substantial defects in materials and workmanship.</p>
+              </div>
+              <h5>Certifications</h5>
+              <ul class="th-list th-listheart col-md-8">
+                <li>ASTM</li>
+                <li>KIWA BRL</li>
+                <li>CE Marked</li>
+                <li>UKAS</li>
+                <li>IMSL</li>
+                <li>NSF/WRAS</li>
+
+              </ul>
+              <div class="col-md-4">
+                <img alt="" src="{% static 'main/img/certification-300x300.jpg' %}" class="img-responsive center-block" />
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab6">
+              <h3>COST EFFECTIVE</h3>
+              <div class="th-description">
+                <h5>Invest Safely</h5>
+                <p>Anti-Legionella filters are very cost effective and a great investment considering how long the filter lifespan is compared to the majority of competitor filters. This is in part due to the innovative design that produces a high-pressure feel at decreased water pressure. They simply last longer than normal.</p>
+              </div>
+              <h5>Quick Look at benefits</h5>
+              <ul class="th-list th-listheart col-md-8">
+                <li>Reusable and replaceable parts</li>
+                <li>Longer lasting than competition</li>
+                <li>Available pre-filter extends life</li>
+                <li>Water-saving flow-rates</li>
+                <li>Avoid costly shut-downs</li>
+              </ul>
+              <div class="col-md-4">
+                <img alt="" src="{% static 'main/img/shutterstock_73881016-768x512.jpg' %}" class="img-responsive center-block" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+    </div>
+
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}
+{% block footer %}
+<p>footer contacts</p>
+{% endblock %}

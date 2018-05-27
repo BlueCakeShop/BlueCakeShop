@@ -1,0 +1,91 @@
+html, body{
+  /* height: 100%; */
+  /* max-height: 100%; */
+  font-family: 'Roboto',sans-serif;
+  font-weight: 300;
+  /*line-height: 50 px;*/
+  /*font-weight: bold;*/
+
+
+
+  /* font-family: 'Lobster', cursive; */
+  /* font-family: 'Noto Serif', serif; */
+  /* font-family: 'Comfortaa', cursive; */
+  /* font-family: 'Philosopher', sans-serif; */
+
+
+  /* font-family: "Open Sans"; */
+  font-style: Regular;
+  font-weight: 400;
+
+  /* src: local("Open Sans Regular"), local("OpenSans-Regular"), url("https://fonts.gstatic.com/s/opensans/v15/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2") format("woff2"); */
+  unicode-range: U+0-FF, U+131, U+152-153, U+2B;
+}
+
+.wrapper{
+  margin-top: 100px;
+  height: 100%;
+  min-height: 100%;
+}
+
+h1{
+  color: #41bfd3;
+}
+
+.navbar,
+.nav,
+.navbar-nav,
+.navbar-custom,
+.navbar-right{
+  background-color: inherit;
+  font-family: 'Lobster', cursive;
+  font-weight: 400;
+  /* font-style:oblique; */
+  font-size: 17px;
+  color: #41bfd3;
+}
+
+
+.navbar-center > .navbar-nav> li> a{
+  color: #41bfd3;
+}
+
+
+.footer{
+  background-color: #41bfd3;
+  height: auto;
+  bottom: 0;
+  text-align: center;
+  margin-left: auto;
+  margin-top: 20px;
+  margin-right: auto;
+}
+
+
+.carousel-control.left, .carousel-control.right {
+  background: none !important;
+  background: #c1d4f2 !important;
+  filter: progid: none !important;
+  outline: 0;
+  visibility: hidden;
+  color: #41bfd3;
+}
+.carousel .carousel-control:link{
+  color: #41bfd3;
+}
+.carousel:hover .carousel-control {
+  visibility: visible;
+}
+.btn-cart{
+  background-color: #41bfd3;
+  color: white;
+}
+
+@media(min-width:992px){
+    .prod-pic:hover{
+        box-shadow: 0px 0px 150px #000000;
+        z-index: 2;
+        transition: all 200ms ease-in;
+        transform: scale(1.2);
+    }
+}

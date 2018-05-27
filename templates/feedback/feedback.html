@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+{% block title %}Обратная связь{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Вопросы и ответы</h1>
+  <div class="row">
+
+        {% for item in questions %}
+          <div class="jumbotron">
+            <h4>{{item.username}}:</h4>
+            <h5>{{item.created}}</h5>
+            <p>{{item.question}}<p>
+
+              {% if item.replied %}
+              <br>
+              <h4>Администратор:</h4>
+              <h5>{{item.updated}}</h5>
+              <p>{{item.reply}}</p>
+              {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+  <br>
+  <h1>Задайте свой вопрос</h1>
+  <form action="" method="post" class="form text-center">{% csrf_token %}
+    {% if form.errors %}
+    {% for error in form.non_field_errors%}
+    <div class="alert alert-danger">
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if exc %}
+    <div class="alert alert-danger">
+      <strong>Ошибка: {{ exc}}</strong>
+    </div>
+    {% endif %}
+
+    {% for field in form %}
+    <div class="form-group">
+      {{ field.errors }}
+      {{ field.label_tag }} {{ field }}
+      {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+      {% endif %}
+      <br>
+    </div>
+    {% endfor %}
+
+
+    <button type="submit" class="btn btn-success">Отправить</button>
+    <button type="reset" class="btn btn-warning">Сбросить поля</button>
+
+  </form>
+</div>
+
+
+
+
+{% endblock %}

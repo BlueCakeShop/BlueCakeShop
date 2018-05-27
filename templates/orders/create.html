@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Оформление заказа
+{% endblock %}
+
+{% block content %}
+  <h1>Оформление заказа</h1>
+  <hr>
+
+<div class="container">
+
+<center>
+  <div class="col-md-4">
+    <h2>Заполните форму</h2>
+    <form class="form-horizontal" action="." method="post">
+      {% csrf_token %}
+      <div class="form-group">
+      {{ form.as_p }}
+      </div>
+      <input type="submit" value="Оформить" class="btn btn-cart">
+    </form>
+    <br>
+  </div>
+
+  <div class="col-md-8">
+    <h2>Ваш заказ</h2>
+
+      {% for item in cart  %}
+        <p>
+          Наименование: {{ item.product.product_name }} | Количество: {{ item.quantity }} | Цена: {{ item.total_price }}
+        </p>
+      {% endfor %}
+      <br>
+      <p> Вся сумма Вашего заказа: {{ cart.get_total_price}} </p>
+
+  </div>
+</center>
+  </div>
+{% endblock %}

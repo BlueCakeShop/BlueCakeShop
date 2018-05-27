@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+{% block title %}{{product.product_name}} подробно {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <h2><span style="color: #41bfd3">Наименование: </span>{{product.product_name}}</h2>
+    <h2><span style="color: #41bfd3">Цена: </span>{{product.product_price}} грн</span></h2>
+    <br>
+    <h2><span style="color: #41bfd3">Описание: </span></h2>
+    <p class="p_main">&ensp;{{product.product_description}}</p>
+    <br>
+    <form action="{% url "cart:CartAdd" product.id %}" method="post">
+          {{ cart_product_form.as_table }}
+          {% csrf_token %}
+          <input type="submit" value="Добавить в корзину" class="btn btn-cart">
+        </form>
+  </div>
+
+  <div class="col-md-6">
+    {% for item in product_photos  %}
+      <center>
+        <a href="{{ item.product_photo.url }}" target="_blank" title="Открыть во весь экран" class="prod_det_img">
+            <!--<center><img src="{{ item}}" alt="" class="img-responsive" width="400px"></center>-->
+            <img src="{{ item.product_photo.url }}" alt="pic" class="img-responsive" width="400px">
+        </a>
+      </center>
+    <br>
+{% endfor %}
+  </div>
+</div>
+
+<div class="row">
+    <h2><span style="color: #41bfd3">Отзывы, вопросы и комментарии</span></h2>
+    <div class="row">
+      {% if comments %}
+      {% for item in comments %}
+      <div class="col-md-5 col-md-offset-1 jumbotron">
+        <h4>{{item.pc_user_name}}</h4>
+        <h5>{{item.pc_created}}</h5>
+        <p>{{item.pc_comment}}<p>
+          {% if  item.pc_video %}
+          <a href ="{{ item.pc_video }}" target="_blank" title="Перейти к просмотру">Просмотреть видео</a>
+          {% endif %}
+          {% if item.pc_photo %}
+          <a href="{{item.pc_photo.url}}" alt={{item.pc_photo}} target="_blank" title="Открыть воженное фото">
+            <center><img src="{{ item.pc_photo.url}}" alt="" class="img-responsive" width="200px"></center>
+          </a>
+          {% endif %}
+          {% if item.pc_reply %}
+          <br>
+          <h4>Администартор</h4>
+          <h5>{{item.pc_updated}}</h5>
+          <p>{{item.pc_reply}}</p>
+          {% endif %}
+        </div>
+
+        {% endfor %}
+      {% else %}
+        <h3>К данному товару пока нет комментариев...</h3>
+        <br>
+      {% endif %}
+    </div>
+    </div>
+
+
+    <div class="row">
+
+
+
+    <h2>Оставьте свой отзыв или вопрос</h2>
+
+
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+
+        <form action="" method="post" class="form " enctype="multipart/form-data">{% csrf_token %}
+        {% for field in comment_form %}
+        <div class="fieldWrapper">
+          {{ field.errors }}
+          {{ field.label_tag }} <br>{{ field }}
+          <!--{# {% if field.help_text %}
+          <p class="help">{{ field.help_text|safe }}</p>
+          {% endif %}#} -->
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success">Отправить</button>
+        <button type="reset" class="btn btn-warning">Сбросить поля</button>
+        </form>
+
+      {% endif %}
+      </div>
+
+{% endblock %}
